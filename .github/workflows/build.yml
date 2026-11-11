@@ -26,6 +26,8 @@ jobs:
           cp main.dart models.dart engine.dart lib/
           f=$(ls android/app/build.gradle*)
           sed -i -E 's/minSdk(Version)? *=? *flutter\.minSdkVersion/minSdk = 24/' "$f"
+          sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' "$f"
+          grep -n "Sdk" "$f"
           sed -i '0,/<application/s//<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"\/>\n    <application/' android/app/src/main/AndroidManifest.xml
       - run: flutter pub get
       - run: flutter build apk --release --split-per-abi
